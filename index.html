@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html class="sl-theme-dark" lang="pt-BR">
+<html lang="pt-BR" class="sl-theme-dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,97 +7,17 @@
   <title>Selenite</title>
   <link rel="icon" href="/favicon.ico">
 
-  <!-- Shoelace -->
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.9.0/cdn/themes/dark.css"
-  >
-  <script
-    type="module"
-    src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.9.0/cdn/shoelace-autoloader.js">
-  </script>
-
-  <!-- Bibliotecas externas -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
-
-  <!-- Scripts do projeto -->
-  <script src="/js/all.js"></script>
-  <script src="/js/main.js"></script>
-  <script src="/js/themes.js"></script>
-  <script src="/js/randomquote.js"></script>
-
-  <!-- Estilos -->
-  <link rel="stylesheet" href="/themes.css">
   <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/themes.css">
 
-  <!-- WidgetBot -->
-  <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async defer>
-    new Crate({
-      server: '1148719137238040606',
-      channel: '1173731814196645909'
-    });
-  </script>
-
-  <!-- SEO -->
-  <meta
-    name="keywords"
-    content="Selenite, unblocked games, games, gaming, browser games, free games"
-  >
-
-  <meta
-    name="description"
-    content="Selenite - Play free browser games and explore useful tools."
-  >
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+  <script src="/js/all.js" defer></script>
+  <script src="/js/main.js" defer></script>
+  <script src="/js/themes.js" defer></script>
+  <script src="/js/randomquote.js" defer></script>
 </head>
 
-<body id="noscroll">
-
-  <!-- Welcome dialog -->
-  <alerts>
-    <sl-dialog
-      label="Welcome to Selenite!"
-      class="dialog-width"
-      style="--width: 60vw; display: none;"
-    >
-      Thank you for choosing Selenite!
-
-      You will be able to play over 150 high quality games,
-      and we have many tools to make your experience better.
-
-      <br><br>
-
-      Wanting to transfer your data from another website?
-      Try the transfer utility in the footer!
-
-      <br><br>
-
-      Want to support the development of Selenite?
-      Join the
-      <a href="https://discord.gg/7jyufnwJNf">Discord</a>
-      and support us on
-      <a href="https://patreon.com/selenitecc">Patreon</a>!
-
-      <br><br>
-
-      Learn more about Selenite at the about page in the header!
-
-      <br><br>
-
-      Try out the Selenite Minified bookmarklet
-      in the bookmarklets page!
-
-      <br><br>
-
-      Have a great day!
-
-      <sl-button slot="footer" variant="neutral">
-        Close
-      </sl-button>
-    </sl-dialog>
-  </alerts>
-
-  <!-- Header -->
+<body>
   <header>
     <a href="/index.html">Home</a>
     <a href="/bookmarklets.html">Bookmarklets</a>
@@ -109,94 +28,38 @@
     <a href="/about.html">About</a>
   </header>
 
-  <!-- Main content -->
-  <main id="main" class="noscroll">
-
+  <main id="main">
     <h1>selenite.</h1>
+    <p id="randomquote">Bem-vindo ao Selenite!</p>
 
-    <p id="randomquote">...</p>
-
-    <!-- Social links -->
     <div class="samerow">
-
       <div class="img-container">
         <a href="https://patreon.com/selenitecc">
-          <img
-            src="/img/Digital-Patreon-Logo_White.png"
-            alt="Patreon"
-          >
+          <img src="/img/Digital-Patreon-Logo_White.png">
         </a>
       </div>
 
       <div class="img-container">
         <a href="/projects.html">
-          <img
-            src="/img/baseline_sports_esports_white_48dp.png"
-            alt="Games"
-          >
+          <img src="/img/baseline_sports_esports_white_48dp.png">
         </a>
       </div>
 
       <div class="img-container">
         <a href="https://discord.gg/7jyufnwJNf">
-          <img
-            src="/img/discord-mark-white.png"
-            alt="Discord"
-          >
+          <img src="/img/discord-mark-white.png">
         </a>
       </div>
-
     </div>
-
-    <!-- Advertisement -->
-    <div id="adcontainer">
-      <h3>
-        <a href="/ad.html">AD (click to read more):</a>
-      </h3>
-
-      <script
-        async
-        data-cfasync="false"
-        src="//pl22225360.toprevenuegate.com/92108816b5da54426d1639bcbfb5785c/invoke.js">
-      </script>
-
-      <div id="container-92108816b5da54426d1639bcbfb5785c"></div>
-    </div>
-
   </main>
 
-  <!-- Footer -->
-  <footer class="noscroll">
-
-    <a href="https://github.com/selenite-cc/Selenite">
-      Source Code
-    </a>
-
-    <a id="panicmode">
-      Panic Mode
-    </a>
-
-    <a href="/transfer.html">
-      Transfer your data
-    </a>
-
-    <a href="/suggest.html">
-      Bug Reports
-    </a>
-
-    <a href="https://discord.gg/7jyufnwJNf">
-      Discord
-    </a>
-
-    <a href="/suggest.html">
-      Suggestions
-    </a>
-
-    <a href="/contact.html">
-      Contact
-    </a>
-
+  <footer>
+    <a href="https://github.com/selenite-cc/Selenite">Source Code</a>
+    <a id="panicmode">Panic Mode</a>
+    <a href="/transfer.html">Transfer your data</a>
+    <a href="/suggest.html">Bug Reports</a>
+    <a href="https://discord.gg/7jyufnwJNf">Discord</a>
+    <a href="/contact.html">Contact</a>
   </footer>
-
 </body>
 </html>
