@@ -7,17 +7,88 @@
   <title>Selenite</title>
   <link rel="icon" href="/favicon.ico">
 
-  <link rel="stylesheet" href="/style.css">
-  <link rel="stylesheet" href="/themes.css">
+  <meta
+    name="keywords"
+    content="unblocked games, games, Selenite, gaming, website"
+  >
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+  <!-- Shoelace -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.9.0/cdn/themes/dark.css"
+  >
+  <script
+    type="module"
+    src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.9.0/cdn/shoelace-autoloader.js"
+  ></script>
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="/themes.css">
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- Bibliotecas e scripts -->
+  <script
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+    defer
+  ></script>
+
   <script src="/js/all.js" defer></script>
   <script src="/js/main.js" defer></script>
   <script src="/js/themes.js" defer></script>
   <script src="/js/randomquote.js" defer></script>
+
+  <!-- Widgetbot -->
+  <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async defer>
+    new Crate({
+      server: '1148719137238040606',
+      channel: '1173731814196645909'
+    })
+  </script>
 </head>
 
-<body>
+<body id="noscroll">
+
+  <!-- Mensagem de boas-vindas -->
+  <sl-dialog
+    label="Welcome to Selenite!"
+    class="dialog-width"
+    style="--width: 60vw;"
+  >
+    Thank you for choosing Selenite! You will be able to play over
+    150 high quality games, and we have many tools to make your
+    experience better.
+
+    <br><br>
+
+    Wanting to transfer your data from another website?
+    Try the transfer utility in the footer!
+
+    <br><br>
+
+    Want to support the development of Selenite?
+    Join the
+    <a href="https://discord.gg/7jyufnwJNf">Discord</a>
+    and support us on
+    <a href="https://patreon.com/selenitecc">Patreon</a>!
+
+    <br><br>
+
+    Learn more about Selenite at the about page in the header!
+
+    <br><br>
+
+    Try out the Selenite Minified bookmarklet in the bookmarklets page!
+
+    <br><br>
+
+    Have a great day!
+
+    <sl-button slot="footer" variant="neutral">
+      Close
+    </sl-button>
+  </sl-dialog>
+
+  <!-- Cabeçalho -->
   <header>
     <a href="/index.html">Home</a>
     <a href="/bookmarklets.html">Bookmarklets</a>
@@ -28,38 +99,65 @@
     <a href="/about.html">About</a>
   </header>
 
-  <main id="main">
+  <!-- Conteúdo principal -->
+  <main id="main" class="noscroll">
+
     <h1>selenite.</h1>
-    <p id="randomquote">Bem-vindo ao Selenite!</p>
+
+    <p id="randomquote">...</p>
 
     <div class="samerow">
+
       <div class="img-container">
         <a href="https://patreon.com/selenitecc">
-          <img src="/img/Digital-Patreon-Logo_White.png">
+          <img src="/img/Digital-Patreon-Logo_White.png" alt="Patreon">
         </a>
       </div>
 
       <div class="img-container">
         <a href="/projects.html">
-          <img src="/img/baseline_sports_esports_white_48dp.png">
+          <img
+            src="/img/baseline_sports_esports_white_48dp.png"
+            alt="Games"
+          >
         </a>
       </div>
 
       <div class="img-container">
         <a href="https://discord.gg/7jyufnwJNf">
-          <img src="/img/discord-mark-white.png">
+          <img src="/img/discord-mark-white.png" alt="Discord">
         </a>
       </div>
+
     </div>
+
+    <!-- Anúncios -->
+    <div id="adcontainer">
+      <h3>
+        <a href="/ad.html">AD (click to read more):</a>
+      </h3>
+
+      <script
+        async
+        data-cfasync="false"
+        src="//pl22225360.toprevenuegate.com/92108816b5da54426d1639bcbfb5785c/invoke.js"
+      ></script>
+
+      <div id="container-92108816b5da54426d1639bcbfb5785c"></div>
+    </div>
+
   </main>
 
-  <footer>
+  <!-- Rodapé -->
+  <footer class="noscroll">
     <a href="https://github.com/selenite-cc/Selenite">Source Code</a>
     <a id="panicmode">Panic Mode</a>
     <a href="/transfer.html">Transfer your data</a>
     <a href="/suggest.html">Bug Reports</a>
     <a href="https://discord.gg/7jyufnwJNf">Discord</a>
+    <a href="/suggest.html">Suggestions</a>
     <a href="/contact.html">Contact</a>
   </footer>
+
 </body>
 </html>
