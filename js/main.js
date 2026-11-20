@@ -1,133 +1,320 @@
+
 var interval;
+
 function check() {
-	if ($("#panicmode").length > 0) {
-		$("#panicmode").prop({ href: panicurl });
-	}
-	if ($(".seleniteminified").length > 0) {
-		$.get("https://raw.githubusercontent.com/skysthelimitt/selenite-optimized/main/build/bookmark.txt", function (data) {
-			$(".seleniteminified").prop({ href: data });
-		});
-		if ($(".seleniteminified").length > 0) {
-			$.get("https://raw.githubusercontent.com/car-axle-client/car-axle-client/main/dist/build.js", function (data) {
-				$(".caraxle").prop({ href: `javascript:${encodeURI(data)}` });
-			});
-		}
-	}
+  const panicMode = document.getElementById("panicmode");
+
+  if (panicMode && typeof panicurl !== "undefined") {
+    panicMode.href = panicurl;
+  }
+
+  const mini = document.querySelector(".seleniteminified");
+
+  if (mini) {
+    $.get(
+      "https://raw.githubusercontent.com/skysthelimitt/selenite-optimized/main/build/bookmark.txt",
+      function (data) {
+        mini.href = data;
+      }
+    );
+
+    const carAxle = document.querySelector(".caraxle");
+
+    if (carAxle) {
+      $.get(
+        "https://raw.githubusercontent.com/car-axle-client/car-axle-client/main/dist/build.js",
+        function (data) {
+          carAxle.href = "javascript:" + encodeURI(data);
+        }
+      );
+    }
+  }
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-	if(document.querySelectorAll('[id=adcontainer]')) {
-		for(let i = 0; i < document.querySelectorAll('[id=adcontainer]').length; i++) {
-			if(Math.random() < 0.5 || localStorage.getItem("selenite.adblock") == "true")
-			document.querySelectorAll('[id=adcontainer]')[i].innerHTML = "";
-		}
-	}
-	const iconSetting = document.querySelector("input#discordIcon");
-	const blockClose = document.querySelector("input#blockClose");
-	const openBlank = document.getElementById("blank");
-	if (localStorage.getItem("theme")) {
-		localStorage.setItem("selenite.theme", localStorage.getItem("theme"));
-		localStorage.removeItem("theme");
-	}
-	if (localStorage.getItem("selenite.theme")) {
-		document.body.setAttribute("theme", localStorage.getItem("selenite.theme"));
-	} else {
-		document.body.setAttribute("theme", "main");
-	}
-	if (document.querySelector("widgetbot-crate")) {
-		if (localStorage.getItem("selenite.discordIcon") == "true") {
-			const widget = document.querySelector("widgetbot-crate");
-			widget.setAttribute("style", "display:none");
-		}
-	}
-	if (document.querySelector("input#discordIcon")) {
-		if (localStorage.getItem("selenite.discordIcon") == "true") {
-			iconSetting.checked = true;
-		}
-		iconSetting.addEventListener("click", () => {
-			localStorage.setItem("selenite.discordIcon", iconSetting.checked);
-		});
-	}
-	if (document.querySelector("input#blockClose")) {
-		if (localStorage.getItem("selenite.blockClose") == "true") {
-			blockClose.checked = true;
-		}
-		blockClose.addEventListener("click", () => {
-			localStorage.setItem("selenite.blockClose", blockClose.checked);
-		});
-	}
-	if (document.querySelector("input#tabDisguise")) {
-		if (localStorage.getItem("selenite.tabDisguise") == "true") {
-			tabDisguise.checked = true;
-		}
-		tabDisguise.addEventListener("click", () => {
-			localStorage.setItem("selenite.tabDisguise", tabDisguise.checked);
-		});
-	}
 
-	document.getElementById("blank").addEventListener("click", () => {
-		win = window.open();
-        win.document.body.style.margin = "0";
-        win.document.body.style.height = "100vh";
-        html =
-          `
-        <style>*{margin:0;padding:0;border:none}body,iframe{height:100vh;width:100vw}iframe{height:96vh}header{display:flex;height:4vh;justify-content:center;}button{margin-right:100px;height:100%;aspect-ratio: 1 / 1}#reload{background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'%3E%3Cpath d='M480-160q-134 0-227-93t-93-227q0-134 93-227t227-93q69 0 132 28.5T720-690v-110h80v280H520v-80h168q-32-56-87.5-88T480-720q-100 0-170 70t-70 170q0 100 70 170t170 70q77 0 139-44t87-116h84q-28 106-114 173t-196 67Z'/%3E%3C/svg%3E");background-size:cover;}#goBack{background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'%3E%3Cpath d='M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z'/%3E%3C/svg%3E");background-size:cover;}</style><script>
-        </script><header><button id=goBack></button><button id=reload></button></header><iframe id=selenite></iframe>`;
-        win.document.querySelector("html").innerHTML = html;
-        win.eval(`let selenite = document.getElementById("selenite");console.log(selenite);selenite.setAttribute("src", "${location.origin}");console.log(selenite);document.getElementById("goBack").addEventListener("click", function () {selenite.contentDocument.location.href = selenite.contentDocument.location.origin;});document.getElementById("reload").addEventListener("click", function () {selenite.contentDocument.location.href = selenite.contentDocument.location.href;})`);
-        location.href="https://google.com";
-        close();
-	})
-	checkAlert();
+  // Remove anúncios aleatoriamente ou conforme configuração
+  document.querySelectorAll("#adcontainer").forEach(function (ad) {
+    if (
+      Math.random() < 0.5 ||
+      localStorage.getItem("selenite.adblock") === "true"
+    ) {
+      ad.innerHTML = "";
+    }
+  });
+
+  // Migração de tema antigo
+  if (localStorage.getItem("theme")) {
+    localStorage.setItem(
+      "selenite.theme",
+      localStorage.getItem("theme")
+    );
+    localStorage.removeItem("theme");
+  }
+
+  // Aplicar tema
+  document.body.setAttribute(
+    "theme",
+    localStorage.getItem("selenite.theme") || "main"
+  );
+
+  // Configurações
+  const iconSetting = document.querySelector("input#discordIcon");
+  const blockClose = document.querySelector("input#blockClose");
+  const tabDisguise = document.querySelector("input#tabDisguise");
+
+  if (iconSetting) {
+    iconSetting.checked =
+      localStorage.getItem("selenite.discordIcon") === "true";
+
+    iconSetting.addEventListener("change", function () {
+      localStorage.setItem(
+        "selenite.discordIcon",
+        iconSetting.checked
+      );
+
+      const widget = document.querySelector("widgetbot-crate");
+
+      if (widget) {
+        widget.style.display =
+          iconSetting.checked ? "none" : "";
+      }
+    });
+  }
+
+  if (blockClose) {
+    blockClose.checked =
+      localStorage.getItem("selenite.blockClose") === "true";
+
+    blockClose.addEventListener("change", function () {
+      localStorage.setItem(
+        "selenite.blockClose",
+        blockClose.checked
+      );
+    });
+  }
+
+  if (tabDisguise) {
+    tabDisguise.checked =
+      localStorage.getItem("selenite.tabDisguise") === "true";
+
+    tabDisguise.addEventListener("change", function () {
+      localStorage.setItem(
+        "selenite.tabDisguise",
+        tabDisguise.checked
+      );
+    });
+  }
+
+  // Ocultar Widgetbot caso configurado
+  const widget = document.querySelector("widgetbot-crate");
+
+  if (
+    widget &&
+    localStorage.getItem("selenite.discordIcon") === "true"
+  ) {
+    widget.style.display = "none";
+  }
+
+  // Botão Open Blank
+  const openBlank = document.getElementById("blank");
+
+  if (openBlank) {
+    openBlank.addEventListener("click", function (event) {
+      event.preventDefault();
+
+      const win = window.open("about:blank", "_blank");
+
+      if (!win) {
+        alert("Permita pop-ups para utilizar o Open Blank.");
+        return;
+      }
+
+      const html = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Home</title>
+          <style>
+            * {
+              margin: 0;
+              padding: 0;
+              border: none;
+              box-sizing: border-box;
+            }
+
+            body {
+              height: 100vh;
+              width: 100vw;
+              overflow: hidden;
+            }
+
+            header {
+              display: flex;
+              height: 4vh;
+              justify-content: center;
+            }
+
+            button {
+              height: 100%;
+              aspect-ratio: 1 / 1;
+              cursor: pointer;
+            }
+
+            iframe {
+              width: 100%;
+              height: 96vh;
+              border: none;
+            }
+          </style>
+        </head>
+        <body>
+          <header>
+            <button id="goBack">Home</button>
+            <button id="reload">Reload</button>
+          </header>
+          <iframe id="selenite"></iframe>
+
+          <script>
+            const frame = document.getElementById("selenite");
+
+            frame.src = ${JSON.stringify(location.origin)};
+
+            document.getElementById("goBack").onclick = function () {
+              frame.src = ${JSON.stringify(location.origin)};
+            };
+
+            document.getElementById("reload").onclick = function () {
+              frame.src = frame.src;
+            };
+          <\/script>
+        </body>
+        </html>
+      `;
+
+      win.document.open();
+      win.document.write(html);
+      win.document.close();
+    });
+  }
+
+  // Verificar alerta de boas-vindas
+  checkAlert();
+
+  // Verificar links especiais
+  check();
 });
 
+// Sistema de alerta
 function checkAlert() {
-	if (!Cookies.get("supportalert")) {
-		const dialog = document.querySelector(".dialog-width");
-		const openButton = dialog.nextElementSibling;
-		const closeButton = dialog.querySelector('sl-button[slot="footer"]');
-		setTimeout(() => {
-			dialog.removeAttribute("display");
-			dialog.show();
-		}, 250);
-		closeButton.addEventListener("click", () => dialog.hide());
-		Cookies.set("supportalert", true, { expires: 60 });
-	}
+  const dialog = document.querySelector(".dialog-width");
+
+  if (!dialog) return;
+
+  if (getCookie("supportalert")) return;
+
+  const closeButton = dialog.querySelector(
+    'sl-button[slot="footer"]'
+  );
+
+  if (closeButton) {
+    closeButton.addEventListener("click", function () {
+      dialog.hide();
+    });
+  }
+
+  setTimeout(function () {
+    if (typeof dialog.show === "function") {
+      dialog.show();
+    }
+  }, 250);
+
+  setCookie("supportalert", "true", 60);
 }
+
+// Cookies sem dependência externa
+function getCookie(name) {
+  const match = document.cookie.match(
+    new RegExp("(?:^|; )" + name + "=([^;]*)")
+  );
+
+  return match ? decodeURIComponent(match[1]) : null;
+}
+
+function setCookie(name, value, days) {
+  const date = new Date();
+
+  date.setTime(
+    date.getTime() + days * 24 * 60 * 60 * 1000
+  );
+
+  document.cookie =
+    name + "=" + encodeURIComponent(value) +
+    "; expires=" + date.toUTCString() +
+    "; path=/; SameSite=Lax";
+}
+
+// Panic Mode
 function setPanicMode() {
-	if (!$("#panic").val().startsWith("https")) {
-		document.cookie = "panicurl=https://" + $("#panic").val();
-		return;
-	}
+  const panicInput = document.getElementById("panic");
 
-	document.cookie = "panicurl=" + $("#panic").val();
+  if (!panicInput) return;
+
+  let url = panicInput.value.trim();
+
+  if (!url.startsWith("https://")) {
+    url = "https://" + url;
+  }
+
+  document.cookie =
+    "panicurl=" + encodeURIComponent(url) +
+    "; path=/; SameSite=Lax";
 }
 
+// Copiar para área de transferência
 function copyToClipboard(text) {
-	navigator.clipboard.writeText(text);
-	alert("Copied text!");
+  navigator.clipboard.writeText(text)
+    .then(function () {
+      alert("Copied text!");
+    })
+    .catch(function () {
+      alert("Não foi possível copiar o texto.");
+    });
 }
 
+// Alterar tema
 function setTheme(theme) {
-	localStorage.setItem("selenite.theme", theme);
-	document.body.setAttribute("theme", theme);
-	if(theme != "custom") {
-		document.getElementById("customMenu").style.display = "none";
-		document.body.style = "";
-	}
+  localStorage.setItem("selenite.theme", theme);
+
+  document.body.setAttribute("theme", theme);
+
+  if (theme !== "custom") {
+    const customMenu = document.getElementById("customMenu");
+
+    if (customMenu) {
+      customMenu.style.display = "none";
+    }
+
+    document.body.style = "";
+  }
 }
-function setPanicMode() {
-	if (!$("#panic").val().startsWith("https")) {
-		document.cookie = "panicurl=https://" + $("#panic").val();
-		return;
-	}
-	document.cookie = "panicurl=" + $("#panic").val();
-}
+
+// Senha
 function setPassword() {
-	localStorage.setItem("selenite.password", enc.encode(document.getElementById("pass").value));
+  const pass = document.getElementById("pass");
+
+  if (!pass || typeof enc === "undefined") return;
+
+  localStorage.setItem(
+    "selenite.password",
+    enc.encode(pass.value)
+  );
 }
+
+// Remover senha
 function delPassword() {
-	location.hash = "";
-	localStorage.removeItem("selenite.passwordAtt");
-	localStorage.removeItem("selenite.password");
+  location.hash = "";
+
+  localStorage.removeItem("selenite.passwordAtt");
+  localStorage.removeItem("selenite.password");
 }
